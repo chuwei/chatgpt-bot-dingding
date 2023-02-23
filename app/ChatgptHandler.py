@@ -46,8 +46,8 @@ class ChatgptHandler(tornado.web.RequestHandler):
         #     except:
         #         logger.info(f"failed, retry")
         #         continue
-        logger.info(f"request_date = {request_data}")
-        response = bot_factory.create_bot("openAI").reply(request_data, dict())
+        logger.info(f"request_date = {prompt}")
+        response = bot_factory.create_bot("openAI").reply(prompt, dict())
 
         logger.info(f"parse response: {response}")
         self.notify_dingding(response)
