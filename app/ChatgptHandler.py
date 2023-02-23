@@ -2,14 +2,14 @@ import json
 
 from util.route import route
 from util.log import logger
-
 import openai
 import tornado.web
-import os
+from bot import bot_factory
 import requests
+from util.config import conf
 
-openai.api_key = os.environ.get("API_KEY")
-dd_token = os.environ.get("DD_TOKEN")
+openai.api_key = conf().get('open_ai_api_key')
+dd_token = conf().get("dingtalk_accessToken")
 
 # Set up the model and prompt
 model_engine = "text-davinci-003"
@@ -28,21 +28,26 @@ class ChatgptHandler(tornado.web.RequestHandler):
         data = json.loads(request_data)
         prompt = data['text']['content']
 
-        for i in range(retry_times):
-            try:
-                completion = openai.Completion.create(
-                    engine=model_engine,
-                    prompt=prompt,
-                    max_tokens=1024,
-                    n=1,
-                    stop=None,
-                    temperature=0.5,
-                )
-                response = completion.choices[0].text
-                break
-            except:
-                logger.info(f"failed, retry")
-                continue
+        # for i in range(retry_times):
+        #     try:
+        #         completion = openai.Completion.create(
+        #             model="text-davinci-003",  # 对话模型的名称
+        #             prompt=prompt,
+        #             temperature=0.9,  # 值在[0,1]之间，越大表示回复越具有不确定性
+        #             max_tokens=1200,  # 回复最大的字符数
+        #             top_p=1,
+        #             frequency_penalty=0.0,  # [-2,2]之间，该值越大则更倾向于产生不同的内容
+        #             presence_penalty=0.0,  # [-2,2]之间，该值越大则更倾向于产生不同的内容
+        #             stop=["#"]
+        #         )
+        #         response = completion.choices[0]["text"].strip().rstrip("<|im_end|>")
+        #         logger.info(f"[OPEN_AI] reply= {response}")
+        #         break
+        #     except:
+        #         logger.info(f"failed, retry")
+        #         continue
+        logger.info(f"request_date = {request_data}")
+        response = bot_factory.create_bot("openAI").reply(request_data, dict())
 
         logger.info(f"parse response: {response}")
         self.notify_dingding(response)
@@ -67,6 +72,7 @@ class ChatgptHandler(tornado.web.RequestHandler):
                 "isAtAll": False
             }
         }
+
 
         notify_url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
         try:
