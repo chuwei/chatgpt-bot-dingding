@@ -2,7 +2,7 @@
 import asyncio
 import tornado
 from util.route import route
-from config import conf
+from config import config
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -11,7 +11,7 @@ class Application(tornado.web.Application):
 
 
 if __name__ == '__main__':
-    conf.load_config()
+    config.load_config()
 
     loop = asyncio.get_event_loop()
     http_server = tornado.httpserver.HTTPServer(Application())
