@@ -5,7 +5,7 @@ from util.log import logger
 import openai
 import tornado.web
 import requests
-from util.config import conf
+from config import conf
 
 
 
