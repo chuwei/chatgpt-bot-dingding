@@ -13,11 +13,12 @@ dd_token = conf().get("dingtalk_accessToken")
 
 # Set up the model and prompt
 model_engine = "text-davinci-003"
-
 retry_times = 5
 
 @route("/")
 class ChatgptHandler(tornado.web.RequestHandler):
+    def __init__(self):
+        openai.api_key = conf().get('open_ai_api_key')
 
     def get(self):
         return self.write_json({"ret": 200})
@@ -45,6 +46,7 @@ class ChatgptHandler(tornado.web.RequestHandler):
                 break
             except openai.error.RateLimitError as e:
                 logger.warn(e)
+
             except Exception as e:
                 logger.info(f"failed, retry{e}")
                 continue
