@@ -17,14 +17,13 @@ retry_times = 5
 
 @route("/")
 class ChatgptHandler(tornado.web.RequestHandler):
-    def __init__(self):
-        openai.api_key = conf().get('open_ai_api_key')
 
     def get(self):
         return self.write_json({"ret": 200})
 
     def post(self):
-
+        logger.info(f"[OPEN_AI] apieky= {openai.api_key}")
+        logger.info(f"[OPEN_AI] ddtoken= {dd_token}")
         request_data = self.request.body;
         data = json.loads(request_data)
         prompt = data['text']['content']
