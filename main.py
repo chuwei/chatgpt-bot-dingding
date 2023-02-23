@@ -1,5 +1,4 @@
-
-import config
+from util.config import config
 import asyncio
 import tornado
 from util.route import route

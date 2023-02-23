@@ -5,10 +5,9 @@ from util.log import logger
 import openai
 import tornado.web
 import requests
-from config import conf
+from util.config import conf
 
-openai.api_key = conf().get('open_ai_api_key')
-dd_token = conf().get("dingtalk_accessToken")
+
 
 # Set up the model and prompt
 model_engine = "text-davinci-003"
@@ -16,6 +15,8 @@ retry_times = 1
 
 @route("/")
 class ChatgptHandler(tornado.web.RequestHandler):
+    def __init__(self):
+        openai.api_key = conf().get('open_ai_api_key')
 
     def get(self):
         return self.write_json({"ret": 200})
@@ -72,7 +73,7 @@ class ChatgptHandler(tornado.web.RequestHandler):
                 "isAtAll": False
             }
         }
-
+        dd_token = conf().get("dingtalk_accessToken")
 
         notify_url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
         try:

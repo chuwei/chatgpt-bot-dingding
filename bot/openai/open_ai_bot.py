@@ -1,7 +1,7 @@
 # encoding:utf-8
 
 from bot.bot import Bot
-from config import conf
+from util.config import conf
 from util.log import logger
 import openai
 import time

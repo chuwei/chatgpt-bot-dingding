@@ -11,7 +11,7 @@ import openai
 import tiktoken
 
 from bot.bot import Bot
-from config import conf
+from util.config import conf
 
 ENGINE = os.environ.get("GPT_ENGINE") or "text-chat-davinci-002-20221122"
 
