@@ -1,9 +1,8 @@
 
-from util.config import  config
+import config
 import asyncio
 import tornado
 from util.route import route
-import app
 
 
 class Application(tornado.web.Application):

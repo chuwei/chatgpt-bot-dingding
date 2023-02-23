@@ -4,9 +4,8 @@ from util.route import route
 from util.log import logger
 import openai
 import tornado.web
-from bot import bot_factory
 import requests
-from util.config import conf
+from config import conf
 
 openai.api_key = conf().get('open_ai_api_key')
 dd_token = conf().get("dingtalk_accessToken")
