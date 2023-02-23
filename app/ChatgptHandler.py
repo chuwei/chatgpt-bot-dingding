@@ -15,13 +15,13 @@ retry_times = 1
 
 @route("/")
 class ChatgptHandler(tornado.web.RequestHandler):
-    def __init__(self):
-        openai.api_key = conf().get('open_ai_api_key')
 
     def get(self):
         return self.write_json({"ret": 200})
 
     def post(self):
+        openai.api_key = conf().get('open_ai_api_key')
+        dd_token = conf().get("dingtalk_accessToken")
         logger.info(f"[OPEN_AI] apieky= {openai.api_key}")
         logger.info(f"[OPEN_AI] ddtoken= {dd_token}")
         request_data = self.request.body;
@@ -73,6 +73,7 @@ class ChatgptHandler(tornado.web.RequestHandler):
                 "isAtAll": False
             }
         }
+
         dd_token = conf().get("dingtalk_accessToken")
 
         notify_url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
