@@ -14,7 +14,7 @@ logging_config = dict(
     },
     root={
         'handlers': ['h'],
-        'level': logging.INFO,
+        'level': logging.DEBUG,
     },
 )
 
