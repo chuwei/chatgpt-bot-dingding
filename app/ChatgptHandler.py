@@ -13,7 +13,7 @@ dd_token = conf().get("dingtalk_accessToken")
 
 # Set up the model and prompt
 model_engine = "text-davinci-003"
-retry_times = 5
+retry_times = 1
 
 @route("/")
 class ChatgptHandler(tornado.web.RequestHandler):
