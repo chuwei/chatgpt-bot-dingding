@@ -11,7 +11,7 @@ class Application(tornado.web.Application):
 
 
 if __name__ == '__main__':
-    config.load_config()
+    #config.load_config()
 
     loop = asyncio.get_event_loop()
     http_server = tornado.httpserver.HTTPServer(Application())
