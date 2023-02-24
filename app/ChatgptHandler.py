@@ -8,7 +8,6 @@ import requests
 from config import conf
 
 
-
 # Set up the model and prompt
 model_engine = "text-davinci-003"
 retry_times = 1
