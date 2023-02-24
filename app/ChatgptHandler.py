@@ -17,6 +17,7 @@ retry_times = 1
 class ChatgptHandler(tornado.web.RequestHandler):
 
     def get(self):
+        logger.info(f"get msg= {self.request.body}")
         return self.write_json({"ret": 200})
 
     def post(self):
