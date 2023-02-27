@@ -28,7 +28,7 @@ class ChatgptHandler(tornado.web.RequestHandler):
         request_data = self.request.body;
         data = json.loads(request_data)
         prompt = data['text']['content']
-
+        logger.info(f"[OPEN_AI] prompt= {prompt}")
         for i in range(retry_times):
             try:
                 completion = openai.Completion.create(
