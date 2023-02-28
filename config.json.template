@@ -1,5 +1,5 @@
 {
-  "open_ai_api_key":"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",
+  "open_ai_api_key":"",
   "single_chat_prefix": ["bot", "@bot"],
   "single_chat_reply_prefix": "[bot] ",
   "group_chat_prefix": ["@bot"],
@@ -7,7 +7,7 @@
   "image_create_prefix": ["画", "看", "找"],
   "conversation_max_tokens": 1000,
   "character_desc": "你是ChatGPT, 一个由OpenAI训练的大型语言模型, 你旨在回答并解决人们的任何问题，并且可以使用多种语言与人交流。",
-  "dingtalk_AppKey": "dingzkzhzm9glhyimsb0",
-  "dingtalk_AppSecret": "Efqb2x6q8rpA2eqKF4uHH-SeQY7fMvuvLyER5Xpu1xklCyBYTCjrXnObIFFRW6_M",
-  "dingtalk_accessToken": "8fbffbc711d55f30f5e1aca2339f5f58c327da448667cbc542dc2b6a3d8ddcfd"
+  "dingtalk_AppKey": "",
+  "dingtalk_AppSecret": "",
+  "dingtalk_accessToken": ""
 }
