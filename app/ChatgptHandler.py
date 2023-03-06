@@ -36,11 +36,14 @@ class ChatgptHandler(tornado.web.RequestHandler):
                     prompt=prompt,
                     max_tokens=1024,
                     n=1,
-                    stop=None,
                     temperature=0.5,
+                    top_p=1,
+                    frequency_penalty=0.0,  # [-2,2]之间，该值越大则更倾向于产生不同的内容
+                    presence_penalty=0.0,  # [-2,2]之间，该值越大则更倾向于产生不同的内容
+                    stop=["#"]
                 )
-                response = completion.choices[0].text
-                #response = completion.choices[0]["text"].strip().rstrip("<|im_end|>")
+                #response = completion.choices[0].text
+                response = completion.choices[0]["text"].strip().rstrip("<|im_end|>")
                 logger.info(f"[OPEN_AI] reply= {response}")
                 break
             except openai.error.RateLimitError as e:
