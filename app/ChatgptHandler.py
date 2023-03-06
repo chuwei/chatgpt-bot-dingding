@@ -8,7 +8,7 @@ import requests
 from config import conf
 import os
 
-openai.api_key = os.environ.get("API_KEY")
+
 # Set up the model and prompt
 model_engine = "text-davinci-003"
 retry_times = 1
@@ -21,10 +21,10 @@ class ChatgptHandler(tornado.web.RequestHandler):
         return self.write_json({"ret": 200})
 
     def post(self):
-        #openai.api_key = conf().get('open_ai_api_key')
-        dd_token = conf().get("dingtalk_accessToken")
+        openai.api_key = conf().get('open_ai_api_key')
+
         logger.info(f"[OPEN_AI] apikey={openai.api_key}")
-        logger.info(f"[OPEN_AI] ddtoken={dd_token}")
+
         request_data = self.request.body;
         data = json.loads(request_data)
         prompt = data['text']['content']
@@ -75,7 +75,7 @@ class ChatgptHandler(tornado.web.RequestHandler):
         }
 
         dd_token = conf().get("dingtalk_accessToken")
-
+        logger.info(f"[OPEN_AI] ddtoken={dd_token}")
         notify_url = f"https://oapi.dingtalk.com/robot/send?access_token={dd_token}"
         try:
             r = requests.post(notify_url, json=data)
